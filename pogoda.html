@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Погода Казахстан</title>
+    <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f7fa;
+    text-align: center;
+    color: #2e3b4e;
+}
+
+header {
+    background-color: #2E3B4E;
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.weather-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.weather-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.weather-card:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.weather-card h2 {
+    font-size: 22px;
+}
+
+.weather-card p {
+    margin: 5px 0;
+}
+
+.temperature {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.icon {
+    width: 50px;
+    vertical-align: middle;
+}
+
+.searh {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.searh input {
+    padding: 10px;
+    width: 250px;
+    border-radius: 20px;
+    border: 2px solid #435774;
+    background-color: #f9f9f9;
+    outline: none;
+}
+
+.searh button {
+    background-color: #2e3b4e;
+    padding: 10px 15px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.searh button:hover {
+    background-color: #435774;
+}
+
+.lupa {
+    width: 20px;
+}
+
+.btns1 {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btnw {
+    color: #2E3B4E;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    background-color: #f1f4f7;
+    border: 1px solid #2E3B4E;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btnw:hover {
+    background-color: #2E3B4E;
+    color: white;
+    transform: scale(1.05);
+}
+
+.selected-weather {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.selected-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 350px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.selected-card:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.selected-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 350px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.selected-card:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+                                        
+
+
+</style>
+</head>
+<body>
+
+<header>
+    Weather Kazakhstan
+    <form class="searh">
+        <input id="searh" type="text" style="background-color: #435774;" pattern="" placeholder="city" />
+    <button id="btns-searh"><img  src="png-klev-club-p-lupa-png-8.png" class="lupa" alt="" /> </button>
+    </form>
+</header>
+<nav class="btns1">
+    <button id="selected-btn" class="btnw">Selected city</button>
+    <button id="btnKZ" class="btnw">in Kazakhstan</button>
+</nav>
+<div class="selected-weather">
+
+</div>
+
+<div class="weather-container">
+    <div class="weather-card" id="weather1">
+        <h2 id="city1">Алматы</h2>
+        <p class="temperature" id="temp1">--°C</p>
+        <p><img id="icon1" class="icon" src="" alt="Иконка"> <span id="desc1">---</span></p>
+        <p id="humidity1">Влажность: --%</p>
+        <p id="wind1">Ветер: -- м/с</p>
+    </div>
+    
+
+    <div class="weather-card" id="weather2">
+        <h2 id="city2">Астана</h2>
+        <p class="temperature" id="temp2">--°C</p>
+        <p><img id="icon2" class="icon" src="" alt="Иконка"> <span id="desc2">---</span></p>
+        <p id="humidity2">Влажность: --%</p>
+        <p id="wind2">Ветер: -- м/с</p>
+    </div>
+
+    <div class="weather-card" id="weather3">
+        <h2 id="city3">Шымкент</h2>
+        <p class="temperature" id="temp3">--°C</p>
+        <p><img id="icon3" class="icon" src="" alt="Иконка"> <span id="desc3">---</span></p>
+        <p id="humidity3">Влажность: --%</p>
+        <p id="wind3">Ветер: -- м/с</p>
+    </div>
+</div>
+
+<script>
+    const apiKey = 'e3ad77404dc88bee59f4a50942c3dbc6'; 
+    const cities = ['Алматы', 'Астана', 'Шымкент'];
+
+    let selectedBtn= document.getElementById('selected-btn')
+    let selectedContainer = document.querySelector('.selected-weather')
+    let weatherContainer = document.querySelector('.weather-container')
+    let btnSearh = document.getElementById('btns-searh')
+    weatherContainer.style.display = "none"
+
+
+    btnSearh.addEventListener('click', async function(){
+    let searh = document.getElementById('searh').value;
+    selectedContainer.textContent = '';
+    weatherContainer.style.display = 'none';
+
+    try {
+        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searh}&appid=${apiKey}&units=metric`);
+        if (!response.ok) {
+            throw new Error('New error');
+        }
+        
+        let data = await response.json();
+
+        let div = document.createElement('div');
+        div.className = 'selected-card'; 
+
+        div.innerHTML = `
+            <h2>${data.name}</h2>
+            <p class="temperature">${Math.round(data.main.temp)}°C</p>
+            <p><img class="icon" src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="Иконка"> <span>${data.weather[0].description}</span></p>
+            <p>Влажность: ${data.main.humidity}%</p>
+            <p>Ветер: ${data.wind.speed} м/с</p>
+        `;
+
+        selectedContainer.appendChild(div); 
+    } catch (err) {
+        console.error(err);
+    }
+});
+
+
+    selectedBtn.addEventListener('click',async function(){
+            let city = "Almaty"
+            weatherContainer.style.display = 'none'
+            selectedContainer.textContent = ''
+            
+            try{
+                let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+
+                if(!response.ok){
+                    throw new Error('New error')
+                }
+
+                let data = await response.json()
+
+                let div = document.createElement('div')
+                div.className = 'weather-card'
+
+                div.innerHTML = `
+                    <h2 id="city1">${data.name}</h2>
+                    <p class="temperature" id="temp1">${Math.round(data.main.temp)}°C</p>
+                    <p><img id="icon1" class="icon" src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="Иконка"> <span id="desc1">${data.weather[0].description}</span></p>
+                    <p id="humidity1">Влажность: ${data.main.humidity}%</p>
+                    <p id="wind1">Ветер: ${data.wind.speed} м/с</p>
+                    div.classList.add('selected-card');
+                `
+
+                selectedContainer.appendChild(div)
+            }catch(err){
+                console.error(err);
+            }
+    })
+
+
+    async function getWeather(city, index) {
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+        weatherContainer.style.display = "flex"
+        selectedContainer.textContent = ''
+        try {
+            let response = await fetch(url);
+            let data = await response.json();
+
+            document.getElementById(`city${index}`).textContent = data.name;
+            document.getElementById(`temp${index}`).textContent = `${Math.round(data.main.temp)}°C`;
+            document.getElementById(`desc${index}`).textContent = data.weather[0].description;
+            document.getElementById(`humidity${index}`).textContent = `Влажность: ${data.main.humidity}%`;
+            document.getElementById(`wind${index}`).textContent = `Ветер: ${data.wind.speed} м/с`;
+            document.getElementById(`icon${index}`).src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+        } catch (error) {
+            console.error('Ошибка при получении данных:', error);
+        }
+    }
+
+    let btnKZ = document.getElementById('btnKZ')
+
+    btnKZ.addEventListener('click',()=>{
+        cities.forEach((city, index) => getWeather(city, index + 1))
+    })
+</script>
+
+</body>
+</html>
